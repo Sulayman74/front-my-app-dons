@@ -1,0 +1,51 @@
+/* Global Styles */
+.not-found {
+    width: 100svw;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Container */
+
+.not-found-container {
+    padding: 8px;
+    height: fit-content;
+    background-color: #fff;
+    text-align: center;
+}
+
+/* Heading */
+
+.not-found-heading {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: orangered;
+
+}
+
+/* Message */
+
+.not-found-message {
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Icon */
+
+.not-found-icon {
+    color: #f00;
+
+}
+
+.link-not-found {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}

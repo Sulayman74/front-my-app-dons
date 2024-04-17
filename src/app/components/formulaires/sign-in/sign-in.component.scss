@@ -1,0 +1,44 @@
+.form-sign-in-container {
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+        padding: 100px;
+        border: solid 5px rgba(57, 57, 205, 0.805);
+        border-radius: 16px;
+        box-shadow: 2px 2px 8px rgba(34, 32, 32, 0.688);
+    }
+
+    .formulaire-connexion {
+        display: flex;
+        flex-direction: column;
+        #btn-formulaire{
+            margin-top: 2rem;
+        }
+    }
+}
+
+#tirroir {
+ height: 100svh;
+    padding: 10px;
+
+    .ma-liste {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 50%;
+        margin: 2px;
+        padding-right: 5px;
+
+        
+        .list-btns{
+            margin: 2px;
+            font-size: 1rem;
+
+        }
+    }
+}
