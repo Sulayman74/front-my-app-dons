@@ -1,8 +1,35 @@
-.home-container{
+.home-container {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100svh;
     align-items: center;
     justify-content: center;
+    background-color: rgba(75, 75, 241, 0.608);
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+background-color: #fff;
+        align-items: center;
+        padding: 8rem;
+        width: 50%;
+        height: 15%;
+        border: solid 5px black;
+        box-shadow: 8px 3px 6px white;
+        border-radius: 1rem;
+
+        #title {
+            font-weight: bold;
+
+        }
+    }
+
+    .btns-connexion {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+
+    }
 }

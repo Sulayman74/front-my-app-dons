@@ -13,8 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HomeComponent {
   constructor(private _router: Router) {}
-  onClick() {
-    console.log('hello');
+  onConnect() {
     this._router.navigate(['sign-in'])
+  }
+  onRegister() {
+    this._router.navigate(['sign-up'])
   }
 }

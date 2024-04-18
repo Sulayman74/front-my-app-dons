@@ -1,22 +1,19 @@
-import { BehaviorSubject, merge } from 'rxjs';
+import { Component, inject } from '@angular/core';
 import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
-  FormGroupDirective,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
+import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { LoadingService } from '../../../services/loading.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,20 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
-  }
-}
+import { MyErrorStateMatcher } from '../../../utils/error-state-matcher';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -63,19 +48,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent {
-  formulaireSignIn!: FormGroup;
+  connexionForm!: FormGroup;
   strongPasswordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  email = new FormControl('', [Validators.required, Validators.email]);
-  nom = new FormControl('', [Validators.minLength(2), Validators.required]);
-  firstname = new FormControl('', [
-    Validators.minLength(3),
-    Validators.required,
-  ]);
-  password = new FormControl('', [
-    Validators.required,
-    Validators.pattern(this.strongPasswordRegex),
-  ]);
 
   matcher = new MyErrorStateMatcher();
 
@@ -84,14 +59,15 @@ export class SignInComponent {
   constructor(
     private _formBuilder: FormBuilder,
     private _router: Router,
-    public _loadingService: LoadingService
+    public _loadingService: LoadingService,
+    private _userService: UserService
   ) {
-    this.formulaireSignIn = this._formBuilder.group({
-      email: [''],
-      nom: [''],
-      firstname: [''],
-      phoneNumber: [''],
-      password: [''],
+    this.connexionForm = this._formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [Validators.required, Validators.pattern(this.strongPasswordRegex)],
+      ],
     });
   }
   onClick() {
@@ -101,6 +77,14 @@ export class SignInComponent {
   }
 
   onSubmit() {
-    console.log('hello', this.formulaireSignIn);
+    const formData = this.connexionForm.value;
+
+    this._userService.submitForm(formData).subscribe((connexion: any) => {
+      localStorage.setItem('token', connexion.token);
+      if (connexion.token) {
+        this.connexionForm.reset();
+      }
+      console.log(connexion.token);
+    });
   }
 }

@@ -1,7 +1,6 @@
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/formulaires/page-not-found.component';
 import { Routes } from '@angular/router';
-import { SignInComponent } from './components/formulaires/sign-in/sign-in.component';
 
 export const routes: Routes = [
   {

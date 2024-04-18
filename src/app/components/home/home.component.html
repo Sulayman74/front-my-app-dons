@@ -1,7 +1,12 @@
 <div class="home-container">
-    <h1>
-        <p>Bienvenue sur ton application de gestion des donations envers un parent!</p>
-    </h1>
+    <div class="container">
+        <h1 id="title">
+            <p>Bienvenue sur ton application de gestion des donations envers un parent!</p>
+        </h1>
 
-<button mat-raised-button color="primary" type="button" (click)="onClick()">Me connecter</button>
+        <div class="btns-connexion">
+            <button mat-raised-button color="primary" type="button" (click)="onConnect()">Me connecter</button>
+            <button mat-raised-button color="warn" type="button" (click)="onRegister()">Créer un compte</button>
+        </div>
+    </div>
 </div>
