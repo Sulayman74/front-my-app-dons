@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
+import { AuthService } from '../../../services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -23,7 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MyErrorStateMatcher } from '../../../utils/error-state-matcher';
-import { UserService } from '../../../services/user.service';
+import { NotificationService } from '../../../utils/error.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -60,7 +61,8 @@ export class SignUpComponent {
     private _formBuilder: FormBuilder,
     private _router: Router,
     public _loadingService: LoadingService,
-    private _userService: UserService
+    private _authService: AuthService,
+    public errorService:NotificationService
   ) {
     this.registerForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -76,11 +78,19 @@ export class SignUpComponent {
   onSubmit() {
     const registerForm = this.registerForm.value;
 
-    this._userService.registerForm(registerForm).subscribe((register: any) => {
-      localStorage.setItem('registerToken', register.token);
+    this._authService.registerForm(registerForm).subscribe((register: any) => {
       if (register.token) {
-        this.registerForm.reset();
+        this._authService.accessToken = register.token;
+        this._authService.isAuthenticated 
+        this._router.navigate(['/sign-in'])
       }
+
+      this.registerForm.reset();
     });
   }
+  onLogout() {
+    this._authService.logout();
+this._router.navigate(['/home'])
+  }
+
 }

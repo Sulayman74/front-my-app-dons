@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
+import { AuthService } from '../../../services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../../../services/loading.service';
@@ -23,7 +24,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MyErrorStateMatcher } from '../../../utils/error-state-matcher';
-import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -60,7 +60,7 @@ export class SignInComponent {
     private _formBuilder: FormBuilder,
     private _router: Router,
     public _loadingService: LoadingService,
-    private _userService: UserService
+    private _authService: AuthService
   ) {
     this.connexionForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -70,21 +70,25 @@ export class SignInComponent {
       ],
     });
   }
-  onClick() {
-    this._router.navigate(['/home']);
-
-    console.log("it's clicking on button menu");
-  }
 
   onSubmit() {
     const formData = this.connexionForm.value;
 
-    this._userService.submitForm(formData).subscribe((connexion: any) => {
-      localStorage.setItem('token', connexion.token);
+    this._authService.connexionForm(formData).subscribe((connexion: any) => {
+      this._authService.accessToken = connexion.token;
       if (connexion.token) {
         this.connexionForm.reset();
+        // connexion.isAuthenticated = true;
+        this._authService.isAuthenticated;
+        if (connexion.isAuthenticated) {
+          this._router.navigate(['/donations']);
+        }
       }
       console.log(connexion.token);
     });
+  }
+  onLogout() {
+    this._authService.logout();
+this._router.navigate(['/home'])
   }
 }

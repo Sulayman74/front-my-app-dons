@@ -1,28 +1,44 @@
+.main-bg-container{
+    // background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+    background-color: #1e90ff; /* Bleu clair */
+
+
+}
 .home-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     height: 100svh;
     align-items: center;
     justify-content: center;
-    background-color: rgba(75, 75, 241, 0.608);
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/assets/images/bg-maroc.jpg');
 
     .container {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-background-color: #fff;
+        justify-content: space-evenly;
+        background-color: #faf7f735;
+        backdrop-filter: blur(10px);
+         /* Préfixes pour Safari */
+    -webkit-backdrop-filter: blur(10px);
+
+    /* Préfixes pour Firefox */
+    -moz-backdrop-filter: blur(10px);
         align-items: center;
-        padding: 8rem;
-        width: 50%;
-        height: 15%;
-        border: solid 5px black;
-        box-shadow: 8px 3px 6px white;
+        padding: 1rem;
+        width: 80svw;
+        height: 35svh;
+        border: solid 3px black;
+        box-shadow: 2px 2px 6px white;
         border-radius: 1rem;
-
-        #title {
+        #title{
             font-weight: bold;
-
+            text-align: center;
+            font-size: 1rem;
         }
     }
 
@@ -32,4 +48,24 @@ background-color: #fff;
         justify-content: space-around;
 
     }
+}
+
+@media screen and (min-width: 576px) {
+.home-container{
+background-size: contain;
+
+}
+    .container {
+        padding: 8rem;
+        width: auto;
+        max-width: 30svw;
+        height: auto;
+
+        
+        #title {
+            font-size: 2rem !important;
+    
+        }
+    }
+
 }

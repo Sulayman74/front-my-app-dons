@@ -1,6 +1,8 @@
+import { AuthGuard } from './utils/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/formulaires/page-not-found.component';
 import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
 
 export const routes: Routes = [
   {
@@ -25,8 +27,9 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'donation-general',
+    path: 'donations',
     title: 'Mes dons',
+    canActivate: [() => inject(AuthGuard).canActivate()] ,
     loadComponent: () =>
       import('./components/formulaires/donations/donations.component').then(
         (c) => c.DonationsComponent

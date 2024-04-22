@@ -1,9 +1,14 @@
 <mat-toolbar>
-    <button (click)="drawer.toggle()" mat-icon-button aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>Mon application de gestion des dons</span>
+    <div class="menu-button">
 
+        <button (click)="drawer.toggle()" mat-icon-button aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="title">
+
+            <span>Menu</span>
+        </div>
+    </div>
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="_loadingService.loading$ | async"></mat-progress-bar>
 <mat-drawer-container hasBackdrop="true">
@@ -18,73 +23,87 @@
                         Mon Profil
                     </button>
                 </a></li>
+            <li>
+                <button mat-raised-button class="list-btns" color="warn" (click)="onLogout()">Log Out</button>
+            </li>
         </ul>
 
     </mat-drawer>
     <mat-drawer-content>
+        <section class="main-bg-container">
 
-        <div class="form-sign-in-container">
+            <div class="form-sign-up-container">
 
-            <div class="card">
+                <div class="card">
 
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="formulaire-connexion">
-                    <mat-form-field class="champs" appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="email" type="email" [errorStateMatcher]="matcher" />
-                        @if (registerForm.get('email')?.invalid && !registerForm.get('email')?.hasError('required')) {
-                        <mat-error>Veuillez entrer une adresse e-mail valide, s'il vous plaît</mat-error>
-                        }
-                        @if (registerForm.get('email')?.hasError('required')) {
-                        <mat-error>Email <strong>requis</strong></mat-error>
-                        }
-                        <mat-icon color="primary" matIconSuffix>mail</mat-icon>
-                    </mat-form-field>
-                    <mat-form-field class="champs">
-                        <mat-label>Nom</mat-label>
-                        <input matInput type="text" formControlName="lastname" [errorStateMatcher]="matcher" />
-                        @if (registerForm.get('lastname')?.invalid && !registerForm.get('lastname')?.hasError('required')) {
-                        <mat-error>Entrez deux caractères minimum</mat-error>
-                        }
-                        @if (registerForm.get('lastname')?.hasError('required')) {
-                        <mat-error>Nom <strong>requis</strong></mat-error>
-                        }
-                        <mat-icon color="primary" matIconSuffix>account_circle</mat-icon>
-                    </mat-form-field>
-                    <mat-form-field class="champs">
-                        <mat-label>Prénom</mat-label>
-                        <input matInput type="text" formControlName="firstname" [errorStateMatcher]="matcher" />
-                        @if (registerForm.get('firstname')?.invalid &&
-                        !registerForm.get('firstname')?.hasError('required')) {
-                        <mat-error>Entrez trois caractères minimum</mat-error>
-                        }
-                        @if (registerForm.get('firstname')?.hasError('required')) {
-                        <mat-error>Prénom <strong>requis</strong></mat-error>
-                        }
-                        <mat-icon matIconSuffix color="primary">person</mat-icon>
-                    </mat-form-field>
-                    <mat-form-field class="champs" appearance="outline">
-                        <mat-label>Téléphone</mat-label>
-                        <input matInput type="tel" formControlName="phoneNumber" />
-                        <mat-icon matIconSuffix color="primary">smartphone</mat-icon>
-                    </mat-form-field>
-                    <mat-form-field class="champs" appearance="outline">
-                        <mat-label> Mot de passe</mat-label>
-                        <input matInput type="text" #input formControlName="password" [errorStateMatcher]="matcher" />
-                        @if(registerForm.get('password')?.invalid){
-                        <mat-error>Veuillez entrer un format valide</mat-error>
-                        }
-                        @if(registerForm.get('password')?.hasError('required')){
-                        <mat-error>Mot de passe <strong>Requis</strong></mat-error>
-                        }
-                        <mat-icon matIconSuffix color="primary">password</mat-icon>
-                        <mat-hint align="start">
-                            1 maj, 1 min, 1 chiffre, 1 special {{input.value.length}}/8
-                        </mat-hint>
-                    </mat-form-field>
-                    <button id="btn-formulaire" mat-flat-button color="warn" [disabled]="registerForm.invalid">Valider</button>
-                </form>
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="formulaire-connexion">
+                        <mat-form-field class="champs" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" type="email" [errorStateMatcher]="matcher" />
+                            @if (registerForm.get('email')?.invalid && !registerForm.get('email')?.hasError('required'))
+                            {
+                            <mat-error>Veuillez entrer une adresse e-mail valide</mat-error>
+                            }
+                            @if (registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.dirty ||
+                            registerForm.get('email')?.touched)) {
+                            <mat-error>Email <strong>requis</strong></mat-error>
+                            }
+                            <mat-icon color="primary" matIconSuffix>mail</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field class="champs">
+                            <mat-label>Nom</mat-label>
+                            <input matInput type="text" formControlName="lastname" [errorStateMatcher]="matcher" />
+                            @if (registerForm.get('lastname')?.invalid &&
+                            !registerForm.get('lastname')?.hasError('required')) {
+                            <mat-error>Entrez deux caractères minimum</mat-error>
+                            }
+                            @if (registerForm.get('lastname')?.hasError('required') &&
+                            (registerForm.get('lastname')?.dirty || registerForm.get('lastname')?.touched)) {
+                            <mat-error>Nom <strong>requis</strong></mat-error>
+                            }
+                            <mat-icon color="primary" matIconSuffix>account_circle</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field class="champs">
+                            <mat-label>Prénom</mat-label>
+                            <input matInput type="text" formControlName="firstname" [errorStateMatcher]="matcher" />
+                            @if (registerForm.get('firstname')?.invalid &&
+                            !registerForm.get('firstname')?.hasError('required')) {
+                            <mat-error>Entrez trois caractères minimum</mat-error>
+                            }
+                            @if (registerForm.get('firstname')?.hasError('required') &&
+                            (registerForm.get('firstname')?.dirty || registerForm.get('firstname')?.touched)) {
+                            <mat-error>Prénom <strong>requis</strong></mat-error>
+                            }
+                            <mat-icon matIconSuffix color="primary">person</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field class="champs" appearance="outline">
+                            <mat-label>Téléphone</mat-label>
+                            <input matInput type="tel" formControlName="phoneNumber" />
+                            <mat-icon matIconSuffix color="primary">smartphone</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field class="champs" appearance="outline">
+                            <mat-label> Mot de passe</mat-label>
+                            <input matInput type="text" #input formControlName="password"
+                                [errorStateMatcher]="matcher" />
+                            @if(registerForm.get('password')?.invalid &&
+                            !registerForm.get('password')?.hasError('required')){
+                            <mat-error>Veuillez entrer un format valide</mat-error>
+                            }
+                            @if(registerForm.get('password')?.hasError('required') &&
+                            (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)){
+                            <mat-error>Mot de passe <strong>Requis</strong></mat-error>
+                            }
+                            <mat-icon matIconSuffix color="primary">password</mat-icon>
+                            <mat-hint align="start">
+                                1 maj, 1 min, 1 chiffre, 1 special {{input.value.length}}/8
+                            </mat-hint>
+                        </mat-form-field>
+                        <button id="btn-formulaire" mat-flat-button color="warn"
+                            [disabled]="registerForm.invalid">Valider</button>
+                    </form>
+                </div>
+
             </div>
-
-        </div>
+        </section>
     </mat-drawer-content>
 </mat-drawer-container>

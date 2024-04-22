@@ -1,8 +1,14 @@
 <mat-toolbar>
-    <button (click)="drawer.toggle()" mat-icon-button aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>Mon application de gestion des dons</span>
+    <div class="menu-button">
+
+        <button (click)="drawer.toggle()" mat-icon-button aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="title">
+
+            <span>Menu</span>
+        </div>
+    </div>
 
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="_loadingService.loading$ | async"></mat-progress-bar>
@@ -10,7 +16,7 @@
     <mat-drawer id="tirroir" #drawer mode="side">
         <ul class="ma-liste">
             <li><a href="/home"><button class="list-btns" mat-flat-button color="primary">Accueil</button></a></li>
-            <li><a href="/"><button class="list-btns" mat-flat-button color="primary">
+            <li><a href="/donations"><button class="list-btns" mat-flat-button color="primary">
                         Mes Dons
                     </button>
                 </a></li>
@@ -18,47 +24,57 @@
                         Mon Profil
                     </button>
                 </a></li>
+            <li>
+                <button mat-raised-button class="list-btns" color="warn" (click)="onLogout()">Log Out</button>
+            </li>
         </ul>
 
     </mat-drawer>
     <mat-drawer-content>
+        <section class="main-bg-container">
 
-        <div class="form-sign-in-container">
+            <div class="form-sign-in-container">
 
-            <div class="card">
+                <div class="card">
 
-                <form [formGroup]="connexionForm" (ngSubmit)="onSubmit()" class="formulaire-connexion">
-                    <mat-form-field class="champs" appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="email" type="email" [errorStateMatcher]="matcher" />
-                        @if (connexionForm.get('email')?.invalid && !connexionForm.get('email')?.hasError('required')) {
-                        <mat-error>Veuillez entrer une adresse e-mail valide</mat-error>
-                        }
-                        @if (connexionForm.get('email')?.hasError('required') && connexionForm.get('email')?.touched) {
-                        <mat-error>Email <strong>requis</strong></mat-error>
-                        }
-                        <mat-icon color="primary" matIconSuffix>mail</mat-icon>
-                    </mat-form-field>
+                    <form [formGroup]="connexionForm" (ngSubmit)="onSubmit()" class="formulaire-connexion">
+                        <mat-form-field class="champs" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" type="email" [errorStateMatcher]="matcher" />
+                            @if (connexionForm.get('email')?.invalid &&
+                            !connexionForm.get('email')?.hasError('required')) {
+                            <mat-error>Veuillez entrer une adresse e-mail valide</mat-error>
+                            }
+                            @if (connexionForm.get('email')?.hasError('required') &&
+                            connexionForm.get('email')?.touched) {
+                            <mat-error>Email <strong>requis</strong></mat-error>
+                            }
+                            <mat-icon color="primary" matIconSuffix>mail</mat-icon>
+                        </mat-form-field>
 
-                    <mat-form-field class="champs" appearance="outline">
-                        <mat-label> Mot de passe</mat-label>
-                        <input matInput type="text" #input formControlName="password" [errorStateMatcher]="matcher" />
-                        @if(connexionForm.get('password')?.invalid && !connexionForm.get('password')?.hasError('required')){
-                        <mat-error>Veuillez entrer un format valide</mat-error>
-                        }
-                        @if(connexionForm.get('password')?.hasError('required') && connexionForm.get('password')?.touched){
-                        <mat-error>Mot de passe <strong>Requis</strong></mat-error>
-                        }
-                        <mat-icon matIconSuffix color="primary">password</mat-icon>
-                        <mat-hint align="start">
-                            1 maj, 1 min, 1 chiffre, 1 special {{input.value.length}}/8
-                        </mat-hint>
-                    </mat-form-field>
-                    <button id="btn-formulaire" mat-raised-button color="primary"
-                        [disabled]="connexionForm.invalid">Valider</button>
-                </form>
+                        <mat-form-field class="champs" appearance="outline">
+                            <mat-label> Mot de passe</mat-label>
+                            <input matInput type="text" #input formControlName="password"
+                                [errorStateMatcher]="matcher" />
+                            @if(connexionForm.get('password')?.invalid &&
+                            connexionForm.get('password')?.hasError('required')){
+                            <mat-error>Veuillez entrer un format valide</mat-error>
+                            }
+                            @if(connexionForm.get('password')?.hasError('required') &&
+                            connexionForm.get('password')?.touched){
+                            <mat-error>Mot de passe <strong>Requis</strong></mat-error>
+                            }
+                            <mat-icon matIconSuffix color="primary">password</mat-icon>
+                            <mat-hint align="start">
+                                1 maj, 1 min, 1 chiffre, 1 special {{input.value.length}}/8
+                            </mat-hint>
+                        </mat-form-field>
+                        <button id="btn-formulaire" mat-raised-button color="primary"
+                            [disabled]="connexionForm.invalid">Valider</button>
+                    </form>
+                </div>
+
             </div>
-
-        </div>
+        </section>
     </mat-drawer-content>
 </mat-drawer-container>
