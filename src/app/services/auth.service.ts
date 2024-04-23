@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 import Credentials from '../utils/credentials';
 import { HttpClient } from '@angular/common/http';
@@ -37,6 +37,9 @@ export class AuthService {
     return this._http
       .post<SignInResponse>('http://localhost:3000/api/v1/log/in', credentials)
       .pipe(
+        catchError(error=>{
+          return throwError(()=> new Error(error))
+        }),
         tap((response: SignInResponse) => {
           if (response.isAuthenticated) {
             // Stocker le jeton d'accès dans localStorage
@@ -72,6 +75,10 @@ export class AuthService {
     return this._http.post<SignUpResponse>(
       'http://localhost:3000/api/v1/log/up',
       formData
-    );
+    ).pipe(
+      catchError(error => {
+        return throwError(()=> new Error(error))
+      })
+    )
   }
 }

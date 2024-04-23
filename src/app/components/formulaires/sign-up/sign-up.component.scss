@@ -1,3 +1,48 @@
+.valid {
+    color: green;
+}
+
+.invalid {
+    color: red;
+}
+
+.error-message {
+    color: orangered;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shake {
+    animation: shake 1s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(50px) rotate(45deg) scale(0.5);
+
+    }
+
+    25% {
+        transform: translateX(-10px) scale(1);
+    }
+
+    50% {
+        transform: translateX(15px) scale(1.1);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
 .main-bg-container {
     background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
     height: 93svh;
@@ -39,6 +84,10 @@
         .champs {
             padding: 10px;
             margin: 2px 0;
+
+
+
+
         }
 
         #btn-formulaire {
@@ -70,6 +119,7 @@
 }
 
 .mat-toolbar {
+
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -88,13 +138,16 @@
         background-color: rgba(255, 255, 255, 0.545);
         backdrop-filter: blur(10px);
         border-radius: 3px;
-
     }
 
     .title {
         font-size: 1rem;
+
     }
 }
+
+
+
 
 @media screen and (min-width: 576px) {
 

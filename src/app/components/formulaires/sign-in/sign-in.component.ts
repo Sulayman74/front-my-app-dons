@@ -1,3 +1,4 @@
+import { BehaviorSubject, catchError } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import {
   ErrorStateMatcher,
@@ -13,7 +14,6 @@ import {
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../../services/auth.service';
-import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../../../services/loading.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MyErrorStateMatcher } from '../../../utils/error-state-matcher';
+import { SignInResponse } from '../../../utils/types/sign-in-response';
 
 @Component({
   selector: 'app-sign-in',
@@ -54,6 +55,9 @@ export class SignInComponent {
 
   matcher = new MyErrorStateMatcher();
 
+  errorMessage: string = '';
+  inputLengthClass: string = '';
+
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -72,20 +76,52 @@ export class SignInComponent {
   }
 
   onSubmit() {
-    const formData = this.connexionForm.value;
-
-    this._authService.connexionForm(formData).subscribe((connexion: any) => {
-      this._authService.accessToken = connexion.token;
-      if (connexion.token) {
-        this.connexionForm.reset();
-        // connexion.isAuthenticated = true;
-        this._authService.isAuthenticated;
-        if (connexion.isAuthenticated) {
-          this._router.navigate(['/donations']);
+    
+    if(this.connexionForm.valid){
+      const formData = this.connexionForm.value;
+      this._authService.connexionForm(formData)
+      .pipe(
+        catchError((error)=>{
+          console.error(error)
+          this.errorMessage = 'Identifiants incorrects'
+          throw error
+        })
+      ).subscribe((connexion:SignInResponse)=>{
+        if (connexion.token) {
+          this._authService.accessToken = connexion.token;
+          // connexion.isAuthenticated = true;
+          this._authService.isAuthenticated;
+          if (connexion.isAuthenticated) {
+            this._router.navigate(['/donations']);
+          }
         }
-      }
-      console.log(connexion.token);
-    });
+        this.connexionForm.reset();
+        console.log(connexion.token);
+      })
+
+    }
+    // this._authService.connexionForm(formData).subscribe((connexion: any) => {
+    //   if (connexion.token) {
+    //     this._authService.accessToken = connexion.token;
+    //     this.connexionForm.reset();
+    //     // connexion.isAuthenticated = true;
+    //     this._authService.isAuthenticated;
+    //     if (connexion.isAuthenticated) {
+    //       this._router.navigate(['/donations']);
+    //     }
+    //   }
+    //   console.log(connexion.token);
+    // });
+  }
+  clearErrorMessage() {
+    this.errorMessage = '';
+  }
+  checkInputLength(value: string) {
+    if (value.length >= 8) {
+      this.inputLengthClass = 'valid';
+    } else {
+      this.inputLengthClass = 'invalid';
+    }
   }
   onLogout() {
     this._authService.logout();

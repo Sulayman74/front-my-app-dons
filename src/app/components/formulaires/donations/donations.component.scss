@@ -1,0 +1,11 @@
+.table-container {
+    height: 100svh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #header-table {
+        background-color: rgba(177, 233, 177, 0.671);
+    }
+}

@@ -1,3 +1,4 @@
+import { BehaviorSubject, catchError } from 'rxjs';
 import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher,
@@ -9,10 +10,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../../services/auth.service';
-import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LoadingService } from '../../../services/loading.service';
@@ -41,6 +42,7 @@ import { NotificationService } from '../../../utils/error.service';
     RouterModule,
     MatProgressBarModule,
     MatSidenavModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
@@ -55,6 +57,9 @@ export class SignUpComponent {
 
   matcher = new MyErrorStateMatcher();
 
+  inputLengthClass: string = '';
+  errorMessage: string = '';
+
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -62,7 +67,8 @@ export class SignUpComponent {
     private _router: Router,
     public _loadingService: LoadingService,
     private _authService: AuthService,
-    public errorService:NotificationService
+    public errorService: NotificationService,
+    private _snackbar: MatSnackBar
   ) {
     this.registerForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -75,22 +81,68 @@ export class SignUpComponent {
       ],
     });
   }
+  // onSubmit() {
+  //   const registerForm = this.registerForm.value;
+
+  //   this._authService.registerForm(registerForm).subscribe(
+  //     (register: any) => {
+  //       if (register.token) {
+  //         this._authService.accessToken = register.token;
+  //         this._authService.isAuthenticated;
+  //         this._router.navigate(['/sign-in']);
+  //       }
+
+  //       this.registerForm.reset();
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.errorMessage = error.message;
+  //     }
+  //   );
+  // }
+
   onSubmit() {
-    const registerForm = this.registerForm.value;
+    if (this.registerForm.valid) {
+      const userData = this.registerForm.value;
+      this._authService
+        .registerForm(userData)
+        .pipe(
+          catchError((error) => {
+            console.error(error); // Afficher l'erreur dans la console
+            this.errorMessage =
+              'Désolé cet utilisateur existe déjà avec cette adresse mail';
 
-    this._authService.registerForm(registerForm).subscribe((register: any) => {
-      if (register.token) {
-        this._authService.accessToken = register.token;
-        this._authService.isAuthenticated 
-        this._router.navigate(['/sign-in'])
-      }
+            // Afficher le message d'erreur dans votre template
+            throw error; // Renvoyer l'erreur pour qu'elle puisse être traitée par d'autres opérateurs catchError() ou par le gestionnaire d'erreur global
+          })
+        )
+        .subscribe((register) => {
+          if (register.token) {
+            this._authService.accessToken = register.token;
+            this._authService.isAuthenticated;
+            this._snackbar.open('Veuillez vous connectez avec vos identifiants','Fermer')
+            this._router.navigate(['/sign-in']);
+          }
 
-      this.registerForm.reset();
-    });
+          this.registerForm.reset();
+        });
+    }
   }
+
+  checkInputLength(value: string) {
+    if (value.length >= 8) {
+      this.inputLengthClass = 'valid';
+    } else {
+      this.inputLengthClass = 'invalid';
+    }
+  }
+
+  clearErrorMessage() {
+    this.errorMessage = '';
+  }
+
   onLogout() {
     this._authService.logout();
-this._router.navigate(['/home'])
+    this._router.navigate(['/home']);
   }
-
 }

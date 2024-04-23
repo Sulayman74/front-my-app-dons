@@ -19,4 +19,6 @@ export class HomeComponent {
   onRegister() {
     this._router.navigate(['sign-up'])
   }
+
+  
 }

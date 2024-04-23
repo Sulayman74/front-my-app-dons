@@ -39,7 +39,7 @@
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="formulaire-connexion">
                         <mat-form-field class="champs" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email" type="email" [errorStateMatcher]="matcher" />
+                            <input matInput (input)="clearErrorMessage()" formControlName="email" type="email" [errorStateMatcher]="matcher" />
                             @if (registerForm.get('email')?.invalid && !registerForm.get('email')?.hasError('required'))
                             {
                             <mat-error>Veuillez entrer une adresse e-mail valide</mat-error>
@@ -83,10 +83,10 @@
                         </mat-form-field>
                         <mat-form-field class="champs" appearance="outline">
                             <mat-label> Mot de passe</mat-label>
-                            <input matInput type="text" #input formControlName="password"
-                                [errorStateMatcher]="matcher" />
+                            <input matInput (input)="clearErrorMessage()" type="text" #input (ngModelChange)="checkInputLength(input.value)"
+                                formControlName="password" [errorStateMatcher]="matcher" />
                             @if(registerForm.get('password')?.invalid &&
-                            !registerForm.get('password')?.hasError('required')){
+                            registerForm.get('password')?.hasError('required')){
                             <mat-error>Veuillez entrer un format valide</mat-error>
                             }
                             @if(registerForm.get('password')?.hasError('required') &&
@@ -95,11 +95,17 @@
                             }
                             <mat-icon matIconSuffix color="primary">password</mat-icon>
                             <mat-hint align="start">
-                                1 maj, 1 min, 1 chiffre, 1 special {{input.value.length}}/8
+                                1 maj, 1 min, 1 chiffre, 1 special <span class="max-mdp" [ngClass]="inputLengthClass">
+                                    {{input.value.length}}
+                                </span>/8
                             </mat-hint>
                         </mat-form-field>
-                        <button id="btn-formulaire" mat-flat-button color="warn"
+                        <button (keydown.enter)="onSubmit()"  id="btn-formulaire" mat-flat-button color="accent"
                             [disabled]="registerForm.invalid">Valider</button>
+                        <div *ngIf="errorMessage" [ngClass]="{'error-message': true, 'shake': errorMessage}"
+                            class="error-message">
+                            {{ errorMessage }}
+                        </div>
                     </form>
                 </div>
 
