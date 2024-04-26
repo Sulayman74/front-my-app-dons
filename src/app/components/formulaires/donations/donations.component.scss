@@ -1,11 +1,15 @@
 .table-container {
     height: 100svh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    width: 95%;
+    margin: 2rem auto;
     #header-table {
         background-color: rgba(177, 233, 177, 0.671);
     }
+}
+
+#title {
+    text-align: center;
+    padding: 1rem;
+    margin: 1rem;
+    font-family: "Open Sans",sans-serif;
 }

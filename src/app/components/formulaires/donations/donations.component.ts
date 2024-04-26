@@ -21,7 +21,7 @@ export class DonationsComponent implements OnInit{
   private _router = inject(Router);
   
   donationSource: Donation[] = [];
-  displayedColumns: string[] = ['amount', 'user', 'createdAt', 'archived'];
+  displayedColumns: string[] = ['amount', 'user','destinataire', 'createdAt', 'archived'];
   
   ngOnInit(): void {
     this._donationService.getDonations().subscribe((donation:any)=>{
