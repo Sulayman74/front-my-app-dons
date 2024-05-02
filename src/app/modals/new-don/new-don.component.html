@@ -1,0 +1,73 @@
+<h2 class="titre">Ajouter un don</h2>
+<mat-dialog-content class="container-form-addDon">
+  <form id="formulaire-addDon" [formGroup]="addDonForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Bénéficiaire</mat-label>
+      <mat-select formControlName="destinataireId">
+        @for (destinataire of destinataires; track destinataire) {
+
+        <mat-option [value]="destinataire.id">{{
+          destinataire.firstname + " " + destinataire.lastname
+        }}</mat-option>
+
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field
+      appearance="outline"
+      *ngIf="!addDonForm.get('customizedAmount')?.dirty"
+    >
+      <mat-label>Montant prédéfini:</mat-label>
+      <mat-select
+        formControlName="amount"
+        (selectionChange)="onSelectChanged()"
+      >
+        @for (montant of montantsPresets; track montant) {<mat-option
+          [value]="montant"
+          >{{ montant }} €</mat-option
+        >}
+      </mat-select>
+    </mat-form-field>
+    <!-- @if (!dirtyInput) {
+
+    <mat-form-field appearance="outline">
+      <mat-label>Montant personnalisé :</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="customizedAmount"
+        min="70"
+        step="5"
+        placeholder="Choisissez un montant"
+      />
+    </mat-form-field>
+    } -->
+
+    <mat-dialog-actions>
+      <button
+        type="submit"
+        [mat-dialog-close]="addDonForm.value"
+        mat-button
+        color="primary"
+        [disabled]="!addDonForm.valid"
+      >
+        Valider
+      </button>
+      <button type="button" (click)="onNoClick()" mat-button color="warn">
+        Annuler
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
+
+<!--
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</mat-dialog-actions> -->

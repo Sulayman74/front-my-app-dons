@@ -1,0 +1,58 @@
+<mat-toolbar>
+  <div class="menu-button">
+    <button
+      (click)="drawer.toggle()"
+      mat-icon-button
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="title">
+      <span>Menu</span>
+    </div>
+  </div>
+</mat-toolbar>
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="_loadingService.loading$ | async"
+></mat-progress-bar>
+<mat-drawer-container hasBackdrop="true">
+  <mat-drawer id="tirroir" #drawer mode="side">
+    <ul class="ma-liste">
+      <li>
+        <a href="/home"
+          ><button class="list-btns" mat-flat-button color="primary">
+            Accueil
+          </button></a
+        >
+      </li>
+      <li>
+        <a href="/donations"
+          ><button class="list-btns" mat-flat-button color="primary">
+            Mes Dons
+          </button>
+        </a>
+      </li>
+      <li>
+        <a href="/profil">
+          <button class="list-btns" mat-flat-button color="primary">
+            Mon Profil
+          </button>
+        </a>
+      </li>
+      <li>
+        <button
+          mat-raised-button
+          class="list-btns"
+          color="warn"
+          (click)="onLogout()"
+        >
+          Log Out
+        </button>
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content class="container">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,43 @@
+<div class="form-container">
+  <form
+    class="formulaire-profil"
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field>
+      <mat-label>Prénom</mat-label>
+
+      <input matInput type="text" formControlName="firstname" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nom</mat-label>
+
+      <input matInput type="text" formControlName="lastname" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Téléphone</mat-label>
+
+      <input matInput type="tel" formControlName="phoneNumber" />
+      <mat-icon matIconSuffix>tel</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Changez de mot de passe</mat-label>
+
+      <input matInput type="text" formControlName="password" />
+    </mat-form-field>
+    <button id="btn-submit" mat-flat-button color="primary" type="submit">
+      Valider
+    </button>
+  </form>
+  @if(updated){
+
+  <div [ngClass]="{ 'success-message': updated }">
+    <p>Votre profil a été mis à jour avec succès !</p>
+  </div>
+  }
+</div>

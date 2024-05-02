@@ -1,0 +1,40 @@
+#title {
+  margin: 1rem;
+}
+.form-container {
+  width: auto;
+  height: 84svh;
+  padding: 2rem;
+  background-color: beige;
+  display: flex;
+  flex-flow: wrap column;
+  justify-content: center;
+  align-items: center;
+  .formulaire-profil {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 2rem;
+    background: #cbc8c8;
+  }
+}
+.success-message {
+  color: green;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 576px) {
+  .form-container {
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .formulaire-profil {
+      display: grid;
+      grid-template-columns: 1fr 1fr; // Deux colonnes de largeur égale
+      gap: 2rem; // Espacement entre les éléments de la grille
+      #btn-submit {
+        align-self: center;
+      }
+    }
+  }
+}
