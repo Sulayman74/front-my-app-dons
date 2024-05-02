@@ -1,11 +1,92 @@
-.table-container {
-    height: 100svh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.main-bg-container {
+  height: 100svh;
+  width: 100%;
+}
 
-    #header-table {
-        background-color: rgba(177, 233, 177, 0.671);
+.table-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  .top-input {
+    width: 80%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    #add {
+      align-self: center;
+      background-color: rgba(177, 233, 177, 0.671);
     }
+  }
+  .donation-tableau {
+    width: 95%;
+    height: 100%;
+  }
+  #header-table {
+    background-color: rgba(177, 233, 177, 0.671);
+  }
+}
+
+#title {
+  margin: 1rem;
+}
+#filtre {
+  width: 60%;
+}
+#no-data {
+  font-size: 2rem;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  color: green;
+}
+
+#tirroir {
+  height: 100%;
+  padding: 10px;
+
+  .ma-liste {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 50%;
+    margin: 2px;
+    padding-right: 5px;
+
+    .list-btns {
+      margin: 2px;
+      font-size: 1rem;
+    }
+  }
+}
+
+.mat-toolbar {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  background-repeat: repeat-x;
+  background-image: url("https://media.istockphoto.com/id/182416152/photo/arabic-islamic-zellige-mosaic-wall-detail-background-stock-photo.jpg?s=612x612&w=0&k=20&c=ttLTO9Ge-OkeFaql1UBUEUzkC2hqHz2t9ckXX8RaPg4=");
+
+  .menu-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.545);
+    backdrop-filter: blur(10px);
+    border-radius: 3px;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
 }

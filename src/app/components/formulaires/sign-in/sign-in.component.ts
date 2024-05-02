@@ -76,28 +76,28 @@ export class SignInComponent {
   }
 
   onSubmit() {
-    
-    if(this.connexionForm.valid){
+
+    if (this.connexionForm.valid) {
       const formData = this.connexionForm.value;
       this._authService.connexionForm(formData)
-      .pipe(
-        catchError((error)=>{
-          console.error(error)
-          this.errorMessage = 'Identifiants incorrects'
-          throw error
-        })
-      ).subscribe((connexion:SignInResponse)=>{
-        if (connexion.token) {
-          this._authService.accessToken = connexion.token;
-          // connexion.isAuthenticated = true;
-          this._authService.isAuthenticated;
-          if (connexion.isAuthenticated) {
-            this._router.navigate(['/donations']);
+        .pipe(
+          catchError((error) => {
+            console.error(error)
+            this.errorMessage = 'Identifiants incorrects'
+            throw error
+          })
+        ).subscribe((connexion: SignInResponse) => {
+          if (connexion.token) {
+            this._authService.accessToken = connexion.token;
+            // connexion.isAuthenticated = true;
+            this._authService.isAuthenticated();
+            if (connexion.isAuthenticated) {
+              this._router.navigate(['/donations']);
+            }
           }
-        }
-        this.connexionForm.reset();
-        console.log(connexion.token);
-      })
+          this.connexionForm.reset();
+          console.log(connexion.token);
+        })
 
     }
     // this._authService.connexionForm(formData).subscribe((connexion: any) => {
@@ -125,6 +125,6 @@ export class SignInComponent {
   }
   onLogout() {
     this._authService.logout();
-this._router.navigate(['/home'])
+    this._router.navigate(['/home'])
   }
 }

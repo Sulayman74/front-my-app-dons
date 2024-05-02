@@ -1,18 +1,19 @@
 import { Router, RouterLink, RouterModule } from '@angular/router';
 
 import { Component } from '@angular/core';
+import { LayoutComponent } from '../layout/layout.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatButtonModule, RouterModule, RouterLink, MatIconModule],
+  imports: [MatButtonModule, RouterModule, RouterLink, MatIconModule, LayoutComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor(private _router: Router) {}
+  constructor(private _router: Router) { }
   onConnect() {
     this._router.navigate(['sign-in'])
   }
@@ -20,5 +21,5 @@ export class HomeComponent {
     this._router.navigate(['sign-up'])
   }
 
-  
+
 }

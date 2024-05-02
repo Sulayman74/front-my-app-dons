@@ -10,7 +10,7 @@ export class AuthGuard {
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   canActivate(): boolean {
     // if (!this.authService.isAuthenticated) {
@@ -27,13 +27,13 @@ export class AuthGuard {
       return true; // Autoriser l'accès à la route
     } else {
       this.snackBar.open('Accès restreint. Veuillez vous connecter pour continuer.', 'Fermer', {
-            duration: 3000
-          });
+        horizontalPosition: 'end'
+      });
       // Rediriger vers la page de connexion si l'utilisateur n'est pas authentifié ou s'il n'a pas de JWT
       this.router.navigate(['/home']);
       return false;
     }
-   
+
   }
 
 

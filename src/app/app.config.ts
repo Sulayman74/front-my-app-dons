@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
@@ -15,11 +17,12 @@ import {
 
 import { ApplicationConfig } from '@angular/core';
 import { AuthGuard } from './utils/auth.guard';
+import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './utils/jwt.interceptor';
 import { LOCALE_ID } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import localeFr from '@angular/common/locales/fr';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import { routes } from './app.routes';
@@ -33,7 +36,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideNativeDateAdapter(MAT_NATIVE_DATE_FORMATS),
+    provideAnimations(), provideNativeDateAdapter(MAT_NATIVE_DATE_FORMATS),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: LOCALE_ID, useValue: 'fr' },
     {
@@ -46,6 +49,8 @@ export const appConfig: ApplicationConfig = {
       useValue: { duration: 3500 },
       useClass: MatSnackBar,
     },
+    { provide: MatPaginatorIntl },
     AuthGuard,
+    AuthService,
   ],
 };

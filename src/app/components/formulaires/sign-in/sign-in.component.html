@@ -1,89 +1,77 @@
-<mat-toolbar>
-    <div class="menu-button">
+<section class="main-bg-container">
+  <div class="form-sign-in-container">
+    <div class="card">
+      <form
+        [formGroup]="connexionForm"
+        (ngSubmit)="onSubmit()"
+        class="formulaire-connexion"
+      >
+        <mat-form-field class="champs" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            (input)="clearErrorMessage()"
+            formControlName="email"
+            type="email"
+            [errorStateMatcher]="matcher"
+          />
+          @if (connexionForm.get('email')?.invalid &&
+          !connexionForm.get('email')?.hasError('required')) {
+          <mat-error>Veuillez entrer une adresse e-mail valide</mat-error>
+          } @if (connexionForm.get('email')?.hasError('required') &&
+          connexionForm.get('email')?.touched) {
+          <mat-error>Email <strong>requis</strong></mat-error>
+          }
+          <mat-icon color="primary" matIconSuffix>mail</mat-icon>
+        </mat-form-field>
 
-        <button (click)="drawer.toggle()" mat-icon-button aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
+        <mat-form-field class="champs" appearance="outline">
+          <mat-label> Mot de passe</mat-label>
+          <input
+            matInput
+            (keyup.enter)="onSubmit()"
+            (input)="clearErrorMessage()"
+            type="text"
+            #input
+            (ngModelChange)="checkInputLength(input.value)"
+            formControlName="password"
+            [errorStateMatcher]="matcher"
+          />
+          @if(connexionForm.get('password')?.invalid &&
+          connexionForm.get('password')?.hasError('required')){
+          <mat-error>
+            Format (1 mini, 1 maj, 1 chiffre, 1 spécial et 8 mini)</mat-error
+          >
+          } @if(connexionForm.get('password')?.hasError('required') &&
+          connexionForm.get('password')?.touched){
+          <mat-error>Mot de passe <strong>Requis</strong></mat-error>
+          }
+          <mat-icon matIconSuffix color="primary">password</mat-icon>
+          <mat-hint align="start">
+            <span class="max-mdp" [ngClass]="inputLengthClass">
+              {{ input.value.length }} </span
+            >/8
+          </mat-hint>
+        </mat-form-field>
+      </form>
+      <div class="submit-btn">
+        <button
+          id="btn-formulaire"
+          mat-raised-button
+          color="primary"
+          [disabled]="connexionForm.invalid"
+          (click)="onSubmit()"
+        >
+          Valider
         </button>
-        <div class="title">
-
-            <span>Menu</span>
+        <div
+          *ngIf="errorMessage"
+          [ngClass]="{ 'error-message': true, shake: errorMessage }"
+          class="error-message"
+        >
+          {{ errorMessage }}
         </div>
+      </div>
     </div>
-
-</mat-toolbar>
-<mat-progress-bar mode="indeterminate" *ngIf="_loadingService.loading$ | async"></mat-progress-bar>
-<mat-drawer-container hasBackdrop="true">
-    <mat-drawer id="tirroir" #drawer mode="side">
-        <ul class="ma-liste">
-            <li><a href="/home"><button class="list-btns" mat-flat-button color="primary">Accueil</button></a></li>
-            <li><a href="/donations"><button class="list-btns" mat-flat-button color="primary">
-                        Mes Dons
-                    </button>
-                </a></li>
-            <li><a href="/"> <button class="list-btns" mat-flat-button color="primary">
-                        Mon Profil
-                    </button>
-                </a></li>
-            <li>
-                <button mat-raised-button class="list-btns" color="warn" (click)="onLogout()">Log Out</button>
-            </li>
-        </ul>
-
-    </mat-drawer>
-    <mat-drawer-content>
-        <section class="main-bg-container">
-
-            <div class="form-sign-in-container">
-
-                <div class="card">
-
-                    <form [formGroup]="connexionForm" (ngSubmit)="onSubmit()" class="formulaire-connexion">
-                        <mat-form-field class="champs" appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput (input)="clearErrorMessage()"formControlName="email" type="email" [errorStateMatcher]="matcher" />
-                            @if (connexionForm.get('email')?.invalid &&
-                            !connexionForm.get('email')?.hasError('required')) {
-                            <mat-error>Veuillez entrer une adresse e-mail valide</mat-error>
-                            }
-                            @if (connexionForm.get('email')?.hasError('required') &&
-                            connexionForm.get('email')?.touched) {
-                            <mat-error>Email <strong>requis</strong></mat-error>
-                            }
-                            <mat-icon color="primary" matIconSuffix>mail</mat-icon>
-                        </mat-form-field>
-
-                        <mat-form-field class="champs" appearance="outline">
-                            <mat-label> Mot de passe</mat-label>
-                            <input matInput (input)="clearErrorMessage()" type="text" #input (ngModelChange)="checkInputLength(input.value)"
-                                formControlName="password" [errorStateMatcher]="matcher" />
-                            @if(connexionForm.get('password')?.invalid &&
-                            connexionForm.get('password')?.hasError('required')){
-                            <mat-error>Veuillez entrer un format valide</mat-error>
-                            }
-                            @if(connexionForm.get('password')?.hasError('required') &&
-                            connexionForm.get('password')?.touched){
-                            <mat-error>Mot de passe <strong>Requis</strong></mat-error>
-                            }
-                            <mat-icon matIconSuffix color="primary">password</mat-icon>
-                            <mat-hint align="start">
-                                1 maj, 1 min, 1 chiffre, 1 special <span class="max-mdp" [ngClass]="inputLengthClass">
-                                    {{input.value.length}}
-                                </span>/8
-                            </mat-hint>
-                        </mat-form-field>
-                    </form>
-                    <div class="submit-btn">
-                        <button (keydown.enter)="onSubmit()" 
-                        id="btn-formulaire" mat-raised-button color="primary"
-                            [disabled]="connexionForm.invalid" type="submit" (click)="onSubmit()">Valider</button>
-                        <div *ngIf="errorMessage" [ngClass]="{'error-message': true, 'shake': errorMessage}"
-                            class="error-message">
-                            {{ errorMessage }}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    </mat-drawer-content>
-</mat-drawer-container>
+  </div>
+</section>
