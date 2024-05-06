@@ -1,4 +1,7 @@
 <section class="main-bg-container">
+  <button routerLink="/" id="btn-icon" mat-icon-button>
+    <mat-icon color="primary">arrow_back_ios</mat-icon>
+  </button>
   <div class="form-sign-in-container">
     <div class="card">
       <form
@@ -64,6 +67,11 @@
         >
           Valider
         </button>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="_loadingService.loading$ | async"
+          color="accent"
+        ></mat-progress-bar>
         <div
           *ngIf="errorMessage"
           [ngClass]="{ 'error-message': true, shake: errorMessage }"

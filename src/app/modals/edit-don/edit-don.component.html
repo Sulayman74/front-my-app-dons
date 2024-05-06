@@ -1,0 +1,47 @@
+<h2 class="titre">Modifier le don</h2>
+<mat-dialog-content class="main-container">
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Montant</mat-label>
+      <input matInput formControlName="amount" type="number" min="0" />
+      <mat-icon matSuffix>€</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Bénéficiare</mat-label>
+      <input matInput disabled [value]="data.don.destinataire.firstname" />
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bénéficiaires</mat-label>
+      <mat-select formControlName="destinataire">
+        @for (destinataire of destinataires; track destinataire) {
+
+        <mat-option [value]="destinataire">
+          {{ destinataire.lastname + " " + destinataire.firstname }}
+        </mat-option>
+        }
+      </mat-select>
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+    <mat-dialog-actions class="btns">
+      <button
+        color="primary"
+        mat-flat-button
+        [mat-dialog-close]="editForm.value"
+        type="submit"
+        (click)="onSubmit()"
+      >
+        Modifier
+      </button>
+      <button
+        mat-flat-button
+        color="accent"
+        type="button"
+        (click)="onNoClick()"
+      >
+        Annuler
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

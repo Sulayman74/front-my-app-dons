@@ -17,11 +17,8 @@
       appearance="outline"
       *ngIf="!addDonForm.get('customizedAmount')?.dirty"
     >
-      <mat-label>Montant prédéfini:</mat-label>
-      <mat-select
-        formControlName="amount"
-        (selectionChange)="onSelectChanged()"
-      >
+      <mat-label>Montant</mat-label>
+      <mat-select formControlName="amount">
         @for (montant of montantsPresets; track montant) {<mat-option
           [value]="montant"
           >{{ montant }} €</mat-option

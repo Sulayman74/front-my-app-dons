@@ -20,10 +20,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class AppComponent {
   title = 'My Donation App';
-  public _loadingService = inject(LoadingService)
+
   private _authService = inject(AuthService)
   private _router = inject(Router)
-  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
 
   onLogout() {
     this._authService.logout();

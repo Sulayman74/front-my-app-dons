@@ -1,24 +1,21 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @include mat.core();
 
-
-
-
 $my-palette: mat.$indigo-palette;
-$my-primary: mat.define-palette(mat.$indigo-palette,300);
-$my-accent: mat.define-palette(mat.$purple-palette,700);
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$blue-palette, 700);
 
 // The "warn" palette is optional and defaults to red if not specified.
-$my-warn: mat.define-palette(mat.$orange-palette,800);
-$my-theme: mat.define-light-theme((
- color: (
-   primary: $my-primary,
-   accent: $my-accent,
-   warn: $my-warn,
- ),
- typography: mat.define-typography-config(),
- density: 0,
-));
-@include mat.all-component-themes($my-theme); 
-
-
+$my-warn: mat.define-palette(mat.$red-palette, 800);
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+@include mat.all-component-themes($my-theme);

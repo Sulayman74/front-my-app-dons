@@ -63,19 +63,22 @@ export class NewDonComponent {
 
     this.addDonForm = this._fb.group({
       destinataireId: ['', Validators.required],
-      amount: [''],
+      amount: ['', Validators.required],
       archived: [false],
-      userId: ['']
+      userId: [''],
 
 
     })
 
+    this._userService.getProfile().subscribe((response) => {
+      console.log(response.id);
+      this.userId = response.id
+
+    })
+
+
   }
 
-  onSelectChanged() {
-    this.dirtyInput = true
-    return
-  }
 
 
 
@@ -83,19 +86,15 @@ export class NewDonComponent {
 
 
     this.data = this.addDonForm.value
-    this.userId = this._userService.getProfile().subscribe((response) => {
-
-      this.addDonForm.value.userId = response.id
-
-    })
-    this._donationService.createDonation({ ...this.addDonForm.value, user: this.userId.userId })
-
-
-
 
     if (this.addDonForm.valid) {
-
+      this.addDonForm.value.userId = this.userId
+      this._donationService.createDonation(this.data).subscribe((donation) => {
+        console.log("donation from modal", donation)
+        this._donationService.donationSignal.set(donation)
+      })
       this._snackbar.open("Don bien effectué", "OK")
+      this.dialogRef.close(this.data);
     }
   }
 

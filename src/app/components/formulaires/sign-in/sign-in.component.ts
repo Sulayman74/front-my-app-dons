@@ -21,8 +21,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MyErrorStateMatcher } from '../../../utils/error-state-matcher';
 import { SignInResponse } from '../../../utils/types/sign-in-response';
 
@@ -37,10 +35,9 @@ import { SignInResponse } from '../../../utils/types/sign-in-response';
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatToolbarModule,
     RouterModule,
-    MatProgressBarModule,
-    MatSidenavModule,
+    MatProgressBarModule
+
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
@@ -87,6 +84,7 @@ export class SignInComponent {
             throw error
           })
         ).subscribe((connexion: SignInResponse) => {
+
           if (connexion.token) {
             this._authService.accessToken = connexion.token;
             // connexion.isAuthenticated = true;

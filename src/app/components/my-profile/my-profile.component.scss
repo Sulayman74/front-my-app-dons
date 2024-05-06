@@ -1,20 +1,20 @@
-#title {
-  margin: 1rem;
-}
 .form-container {
   width: auto;
-  height: 84svh;
-  padding: 2rem;
+  height: 95svh;
   background-color: beige;
   display: flex;
-  flex-flow: wrap column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  overflow: auto;
   .formulaire-profil {
+    height: auto;
     display: flex;
     flex-flow: column wrap;
     padding: 2rem;
-    background: #cbc8c8;
+    border: 1px solid black;
+    box-shadow: 1px 2px 4px black;
+    border-radius: 6px;
+    background-color: transparent;
   }
 }
 .success-message {

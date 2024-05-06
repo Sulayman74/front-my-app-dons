@@ -7,8 +7,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ConfirmationDialogComponent } from '../../../modals/confirmation-dialog/confirmation-dialog.component';
 import Donation from '../../../utils/types/donation';
 import { DonationService } from '../../../services/donation.service';
+import { EditDonComponent } from '../../../modals/edit-don/edit-don.component';
 import { LoadingService } from '../../../services/loading.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -40,13 +42,16 @@ export class DonationsComponent implements OnInit, AfterViewInit {
   private _router = inject(Router);
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  donationSource = new MatTableDataSource<Donation>()
-  displayedColumns: string[] = ['amount', 'user', 'destinataire', 'createdAt', 'archived'];
+  donationSource = new MatTableDataSource<Donation>([])
+  displayedColumns: string[] = ['amount', 'user', 'destinataire', 'createdAt', 'archived', 'modification'];
 
   greetings !: string
   resultsLength = 0;
   newDonation !: Donation
+  editedDonation !: any
   userId !: string
+  role !: string
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort;
@@ -56,20 +61,35 @@ export class DonationsComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this._loadingService.startLoading();
     this.paginationLabel.previousPageLabel = "Page précédente";
     this.paginationLabel.nextPageLabel = "Page suivante";
+    this.paginationLabel.firstPageLabel = "Première page"
+    this.paginationLabel.lastPageLabel = "Dernière page"
 
 
+
+  }
+
+
+  loadDonations() {
     this._donationService.getDonations().subscribe({
       next: (donations) => {
-        // Faire quelque chose avec les donations
-        if (donations && donations.length > 0) {
-          this.donationSource = new MatTableDataSource(donations);
-          this.donationSource.filterPredicate = this.customFilterPredicate.bind(this);
 
-        }
+
         this.donationSource.paginator = this.paginator;
         this.donationSource.sort = this.sort;
+
+        if (donations && donations.length > 0) {
+          this.donationSource.data = donations;
+          this.donationSource.filterPredicate = this.customFilterPredicate.bind(this);
+          this._loadingService.stopLoading();
+        } else {
+          setTimeout(() => {
+            this._loadingService.stopLoading()
+          }, 3000);
+        }
+
 
 
       },
@@ -101,51 +121,79 @@ export class DonationsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
+    this.loadDonations()
     this.donationSource.paginator = this.paginator
     this.donationSource.sort = this.sort
     this.getProfil()
+
   }
 
   getProfil() {
-
-
-
     this._userService.getProfile().subscribe((profile) => {
+      console.log("mon profil", profile.role);
+      this.role = profile.role
       const firstname = profile.firstname
       const lastname = profile.lastname
       this.greetings = `Bienvenue ${firstname + ' ' + lastname}`
+      this.userId = profile.id
     })
 
   }
 
   addDon() {
     const dialogRef = this._matDialog.open(NewDonComponent, {
-      width: '50%',
-      height: '50%',
       hasBackdrop: true
     })
     dialogRef.afterClosed().subscribe(result => {
+
+
       if (result) {
+        this.newDonation = result
+        // Ajoutez le nouveau don à la liste existante
+        this.donationSource.data.push(this.newDonation);
 
-
-        if (result.customizedAmount) {
-          const amount = result.customizedAmount
-          this.newDonation = Object.assign({ ...result, amount: amount })
-          console.log("avec custom", this.newDonation);
-
-        } else {
-
-          this.newDonation = Object.assign({
-            ...result,
-          })
-          console.log("normal", this.newDonation);
-        }
+        // Mettez à jour la source de données MatTableDataSource
+        this.loadDonations()
       }
-
-
-
     })
+  }
+
+  editDon(don: Donation) {
+    const dialogRef = this._matDialog.open(EditDonComponent, {
+      hasBackdrop: true,
+      data: { don }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      // Ajoutez le nouveau don à la liste existante
+
+
+      if (result) {
+        console.log(result);
+        this.editedDonation = result
+        this.donationSource.data.push(this.editedDonation);
+
+        this.loadDonations()
+      }
+    })
+
+
+  }
+
+  deleteDonation(id: string): void {
+    const dialogRef = this._matDialog.open(ConfirmationDialogComponent, {
+      data: 'Confirmez-vous la suppression de cette donation ?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._donationService.deleteDonation(id).subscribe(() => {
+          console.log('Donation deleted successfully');
+          this.loadDonations()
+
+        }
+        )
+      }
+    });
   }
 
   onLogout() {

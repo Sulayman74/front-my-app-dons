@@ -1,6 +1,12 @@
+#colonne {
+  color: orange;
+}
+
 .main-bg-container {
-  // background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
-  background-color: #1e90ff; /* Bleu clair */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("/assets/images/bg-maroc.jpg");
 }
 .home-container {
   display: flex;
@@ -9,11 +15,7 @@
   height: 100svh;
   align-items: center;
   justify-content: center;
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("/assets/images/bg-maroc.jpg");
+  background-color: transparent;
 
   .container {
     display: flex;
@@ -51,8 +53,10 @@
 }
 
 @media screen and (min-width: 576px) {
-  .home-container {
-    background-size: 50%;
+  .main-bg-container {
+    background-color: rgb(28, 28, 146);
+    background-position: center;
+    background-size: cover;
   }
   .container {
     padding: 8rem;

@@ -4,28 +4,28 @@
     [formGroup]="profileForm"
     (ngSubmit)="onSubmit()"
   >
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Prénom</mat-label>
 
       <input matInput type="text" formControlName="firstname" />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Nom</mat-label>
 
       <input matInput type="text" formControlName="lastname" />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
 
       <input matInput type="email" formControlName="email" />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Téléphone</mat-label>
 
       <input matInput type="tel" formControlName="phoneNumber" />
       <mat-icon matIconSuffix>tel</mat-icon>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Changez de mot de passe</mat-label>
 
       <input matInput type="text" formControlName="password" />

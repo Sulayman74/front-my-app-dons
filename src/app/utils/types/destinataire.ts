@@ -5,7 +5,7 @@ export default interface Destinataire {
     donation?: any
     email?: string
     firstname: string
-    id?: string
+    id: string
     isFamily: boolean
     lastname: string
     phoneNumber?: string

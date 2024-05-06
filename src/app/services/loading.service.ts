@@ -18,4 +18,11 @@ export class LoadingService {
       }
     });
   }
+  startLoading() {
+    this.loading$.next(true);
+  }
+
+  stopLoading() {
+    this.loading$.next(false);
+  }
 }

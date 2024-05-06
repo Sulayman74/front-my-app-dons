@@ -1,16 +1,14 @@
 .main-bg-container {
   height: 100svh;
   width: 100%;
-}
-
-.table-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-
+  background-color: beige;
+  .top-title {
+    text-align: center;
+  }
   .top-input {
     width: 80%;
     height: 30%;
@@ -22,47 +20,67 @@
       background-color: rgba(177, 233, 177, 0.671);
     }
   }
+}
+
+td.mat-column-modification {
+  width: 20px;
+}
+
+// th.mat-column-user,
+// td.mat-column-user {
+//   padding-left: 8px;
+// }
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+
+#no-admin {
+  font-size: smaller;
+  color: rgb(198, 142, 39);
+  background-color: #8c888869;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.table-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
   .donation-tableau {
     width: 95%;
-    height: 100%;
-  }
-  #header-table {
-    background-color: rgba(177, 233, 177, 0.671);
+    height: auto;
+    max-width: 100%;
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-shadow: 1px 2px 2px 2px black;
   }
 }
 
-#title {
-  margin: 1rem;
-}
 #filtre {
   width: 60%;
 }
-#no-data {
-  font-size: 2rem;
-  padding: 1rem;
+#no-data,
+#no-match {
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  margin-left: 1rem;
   text-transform: uppercase;
   font-family: "Open Sans", sans-serif;
-  color: green;
+  color: orangered;
 }
 
-#tirroir {
-  height: 100%;
-  padding: 10px;
-
-  .ma-liste {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 50%;
-    margin: 2px;
-    padding-right: 5px;
-
-    .list-btns {
-      margin: 2px;
-      font-size: 1rem;
-    }
-  }
+#paginator {
+  width: 100%;
 }
 
 .mat-toolbar {
@@ -89,4 +107,7 @@
   .title {
     font-size: 1rem;
   }
+}
+
+@media screen and (min-width: 415px) {
 }

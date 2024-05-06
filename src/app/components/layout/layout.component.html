@@ -12,10 +12,7 @@
     </div>
   </div>
 </mat-toolbar>
-<mat-progress-bar
-  mode="indeterminate"
-  *ngIf="_loadingService.loading$ | async"
-></mat-progress-bar>
+
 <mat-drawer-container hasBackdrop="true">
   <mat-drawer id="tirroir" #drawer mode="side">
     <ul class="ma-liste">
@@ -33,6 +30,23 @@
           </button>
         </a>
       </li>
+      @if( role === "ADMIN"){
+
+      <li>
+        <a href="/destinataires"
+          ><button class="list-btns" mat-flat-button color="accent">
+            Mes Bénéficiaires
+          </button>
+        </a>
+      </li>
+      <li>
+        <a href="/archives"
+          ><button class="list-btns" mat-flat-button color="accent">
+            Archives
+          </button>
+        </a>
+      </li>
+      }
       <li>
         <a href="/profil">
           <button class="list-btns" mat-flat-button color="primary">
