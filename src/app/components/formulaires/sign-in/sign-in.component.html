@@ -9,6 +9,7 @@
         (ngSubmit)="onSubmit()"
         class="formulaire-connexion"
       >
+        <h2>Connexion</h2>
         <mat-form-field class="champs" appearance="outline">
           <mat-label>Email</mat-label>
           <input
@@ -56,30 +57,38 @@
             >/8
           </mat-hint>
         </mat-form-field>
-      </form>
-      <div class="submit-btn">
-        <button
-          id="btn-formulaire"
-          mat-raised-button
-          color="primary"
-          [disabled]="connexionForm.invalid"
-          (click)="onSubmit()"
-        >
-          Valider
-        </button>
-        <mat-progress-bar
-          mode="indeterminate"
-          *ngIf="_loadingService.loading$ | async"
-          color="accent"
-        ></mat-progress-bar>
-        <div
-          *ngIf="errorMessage"
-          [ngClass]="{ 'error-message': true, shake: errorMessage }"
-          class="error-message"
-        >
-          {{ errorMessage }}
+        <div class="submit-btn">
+          <button
+            id="btn-formulaire"
+            mat-raised-button
+            color="primary"
+            [disabled]="connexionForm.invalid"
+            (click)="onSubmit()"
+          >
+            Valider
+          </button>
+          <mat-progress-bar
+            mode="indeterminate"
+            *ngIf="_loadingService.loading$ | async"
+            color="accent"
+          ></mat-progress-bar>
+          <div
+            *ngIf="errorMessage"
+            [ngClass]="{ 'error-message': true, shake: errorMessage }"
+            class="error-message"
+          >
+            {{ errorMessage }}
+          </div>
         </div>
-      </div>
+      </form>
+    </div>
+    <div class="right-side">
+      <h2>Connectez-vous</h2>
+      <p>
+        Notre application vous permet de garder une trace de vos dons en toute
+        simplicité. Explorez votre historique de dons et découvrez comment votre
+        générosité fait une différence.
+      </p>
     </div>
   </div>
 </section>

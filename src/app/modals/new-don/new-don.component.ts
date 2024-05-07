@@ -41,7 +41,7 @@ export class NewDonComponent {
   dirtyInput: boolean = false
   montantsPresets: number[] = [70, 140, 210, 280, 350, 420, 490, 560, 630, 700, 770, 840, 910];
 
-  userId !: any
+  userId !: string
   destinataires !: Destinataire[]
   constructor(
     public dialogRef: MatDialogRef<NewDonComponent>,

@@ -1,1 +1,147 @@
-<p>users works!</p>
+<mat-progress-bar
+  *ngIf="_loadingService.loading$ | async"
+  mode="indeterminate"
+  color="warn"
+></mat-progress-bar>
+<section class="main-container">
+  <div class="table-container">
+    <div class="top-title">
+      <h1 id="title">Vos Bénéficiaires</h1>
+      <h2>{{ greetings }}</h2>
+    </div>
+    <div class="top-input">
+      <mat-form-field appearance="outline" id="filtre">
+        <mat-label>Filtre</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          #input
+          placeholder="Ex : nom du destinataire..."
+        />
+      </mat-form-field>
+      <button
+        type="button"
+        (click)="addDestinataire()"
+        mat-icon-button
+        id="add"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="destinataire-tableau">
+      <table
+        tabindex="0"
+        matSort
+        mat-table
+        [dataSource]="destinataireSource"
+        class="mat-elevation-z8 colonne"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" sticky>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Identifiant unique
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.id }}
+          </td>
+        </ng-container>
+
+        <!-- Donateur Column -->
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.lastname }}
+          </td>
+        </ng-container>
+        <!-- Bénéficiare Column -->
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.firstname }}
+          </td>
+        </ng-container>
+
+        <!-- Date du don Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date d'ajout
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.createdAt | date : "medium" }}
+          </td>
+        </ng-container>
+
+        <!-- Archivé Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.email }}
+          </td>
+        </ng-container>
+        <!-- Archivé Column -->
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Téléphone</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.phoneNumber }}
+          </td>
+        </ng-container>
+        <!-- Archivé Column -->
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Pays</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.country }}
+          </td>
+        </ng-container>
+
+        <!-- Buttons Column -->
+        <ng-container matColumnDef="modification" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Modification
+          </th>
+
+          <td mat-cell *matCellDef="let element">
+            @if(role === 'ADMIN'){
+            <button mat-icon-button type="button" (click)="editDon(element)">
+              <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              type="button"
+              (click)="deleteDonation(element.id)"
+            >
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+            } @if(role === 'USER'){
+            <p id="no-admin">Contactez l'administateur pour une modification</p>
+            }
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          id="header-table"
+          *matHeaderRowDef="displayedColumns"
+        ></tr>
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr *matNoDataRow>
+          <td id="no-match" *ngIf="destinataireSource.data.length > 0">
+            Aucune entrée correspondante au filtre : "<strong
+              >{{ input.value }} </strong
+            >"
+          </td>
+          <td *ngIf="destinataireSource.data.length === 0 && !input.value">
+            <strong id="no-data"> Pas de donation trouvé! </strong>
+          </td>
+        </tr>
+      </table>
+      <mat-paginator
+        id="paginator"
+        [pageSizeOptions]="[5, 10, 15]"
+        [length]="resultsLength"
+        showFirstLastButtons
+        aria-label="Selectionnez les pages"
+      ></mat-paginator>
+    </div>
+  </div>
+</section>

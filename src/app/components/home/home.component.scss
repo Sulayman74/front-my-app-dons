@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: #faf7f735;
+    background-color: rgba(245, 245, 220, 0.663);
     backdrop-filter: blur(10px);
     /* Préfixes pour Safari */
     -webkit-backdrop-filter: blur(10px);
@@ -54,15 +54,22 @@
 
 @media screen and (min-width: 576px) {
   .main-bg-container {
-    background-color: rgb(28, 28, 146);
-    background-position: center;
-    background-size: cover;
+    background: linear-gradient(
+      140deg,
+      #a9db80 25%,
+      #96c56f 11%,
+      #96c56f 65%,
+      #96c56f 42%,
+      #a9db80 89%,
+      #96c56f 30%
+    );
   }
   .container {
     padding: 8rem;
     width: auto;
     max-width: 50svw;
     height: auto;
+    background-color: rgba(245, 245, 220, 0.663);
     .btns-connexion {
       flex-direction: row;
       width: 100%;

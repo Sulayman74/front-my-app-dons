@@ -108,6 +108,16 @@ td.mat-column-modification {
     font-size: 1rem;
   }
 }
+.archived-row {
+  // Ajoutez les styles que vous souhaitez appliquer aux lignes archivées
 
+  // Par exemple, vous pouvez appliquer une couleur de texte plus claire
+  color: #999;
+
+  // Ou vous pouvez ajouter un fond barré
+  text-decoration: line-through;
+
+  // Ou d'autres styles selon vos besoins
+}
 @media screen and (min-width: 415px) {
 }

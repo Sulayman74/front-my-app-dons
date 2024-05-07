@@ -9,6 +9,7 @@
         (ngSubmit)="onSubmit()"
         class="formulaire-connexion"
       >
+        <h2>Créer un compte</h2>
         <mat-form-field class="champs" appearance="outline">
           <mat-label>Email</mat-label>
           <input
@@ -83,7 +84,9 @@
           />
           @if(registerForm.get('password')?.invalid &&
           registerForm.get('password')?.hasError('required')){
-          <mat-error>Veuillez entrer un format valide</mat-error>
+          <mat-error>
+            Format (1 mini, 1 maj, 1 chiffre, 1 spécial et 8 mini)</mat-error
+          >
           } @if(registerForm.get('password')?.hasError('required') &&
           (registerForm.get('password')?.dirty ||
           registerForm.get('password')?.touched)){
@@ -91,7 +94,6 @@
           }
           <mat-icon matIconSuffix color="primary">password</mat-icon>
           <mat-hint align="start">
-            1 maj, 1 min, 1 chiffre, 1 special
             <span class="max-mdp" [ngClass]="inputLengthClass">
               {{ input.value.length }} </span
             >/8
@@ -113,6 +115,14 @@
           {{ errorMessage }}
         </div>
       </form>
+    </div>
+    <div class="right-side">
+      <h2>Enregistrez-vous en créant un compte</h2>
+      <p>
+        Suivez facilement vos dons avec notre application. Consultez rapidement
+        l'historique de vos contributions et restez informé sur leur impact
+        grâce à notre interface conviviale.
+      </p>
     </div>
   </div>
 </section>
