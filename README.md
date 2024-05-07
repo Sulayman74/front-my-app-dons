@@ -1,5 +1,14 @@
 # FrontMyDonationApp
 
+- Mon App sous Angular 17
+- Connexion et inscription via ReactiveForms
+- Historique, suivi des donations aux bénéficaires
+- Ajout/Edition réservé à l'Admin
+- Guards/Interceptors
+- JWT
+- Responsive mobile first
+- Connexion au backend Node.js Nest.js Prisma.io Postgresql
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
 
 ## Development server
@@ -16,7 +25,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via Jest
 
 ## Running end-to-end tests
 
