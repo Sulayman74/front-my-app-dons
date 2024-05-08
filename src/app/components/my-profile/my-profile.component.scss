@@ -1,8 +1,9 @@
 .form-container {
   width: auto;
-  height: 95svh;
+  height: 100%;
   background-color: beige;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: auto;
@@ -22,6 +23,11 @@
   font-weight: bold;
 }
 
+.footer {
+  position: fixed;
+  height: auto;
+  bottom: 0;
+}
 @media screen and (min-width: 576px) {
   .form-container {
     width: 100%;

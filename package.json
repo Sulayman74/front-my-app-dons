@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:dev": "ng build --base-href https://sulayman74.github.io/front-my-app-dons/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:front-my-donation-app": "node dist/front-my-donation-app/server/server.mjs"

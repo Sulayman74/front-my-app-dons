@@ -6,6 +6,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +17,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule, MatSnackBarModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule, MatSnackBarModule, FooterComponent],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
 })

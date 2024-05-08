@@ -59,6 +59,7 @@ export class SignUpComponent {
 
   inputLengthClass: string = '';
   errorMessage: string = '';
+  passwordFieldType: string = 'password';
 
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -120,7 +121,7 @@ export class SignUpComponent {
           if (register.token) {
             this._authService.accessToken = register.token;
             this._authService.isAuthenticated;
-            this._snackbar.open('Veuillez vous connectez avec vos identifiants','Fermer')
+            this._snackbar.open('Veuillez vous connectez avec vos identifiants', 'Fermer')
             this._router.navigate(['/sign-in']);
           }
 
@@ -134,6 +135,20 @@ export class SignUpComponent {
       this.inputLengthClass = 'valid';
     } else {
       this.inputLengthClass = 'invalid';
+    }
+  }
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  // Dans votre composant TypeScript
+  normalizeEmail() {
+    const emailControl = this.registerForm.get('email');
+    if (emailControl) {
+      const currentValue = emailControl.value;
+      if (typeof currentValue === 'string') {
+        emailControl.setValue(currentValue.toLowerCase(), { emitEvent: false });
+      }
     }
   }
 

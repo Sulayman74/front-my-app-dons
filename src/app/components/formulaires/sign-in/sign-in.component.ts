@@ -55,6 +55,9 @@ export class SignInComponent {
   errorMessage: string = '';
   inputLengthClass: string = '';
 
+  passwordFieldType: string = 'password';
+
+
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -121,6 +124,22 @@ export class SignInComponent {
       this.inputLengthClass = 'invalid';
     }
   }
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  // Dans votre composant TypeScript
+  normalizeEmail() {
+    const emailControl = this.connexionForm.get('email');
+    if (emailControl) {
+      const currentValue = emailControl.value;
+      if (typeof currentValue === 'string') {
+        emailControl.setValue(currentValue.toLowerCase(), { emitEvent: false });
+      }
+    }
+  }
+
+
   onLogout() {
     this._authService.logout();
     this._router.navigate(['/home'])

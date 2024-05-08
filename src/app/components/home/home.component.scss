@@ -1,8 +1,11 @@
-#colonne {
-  color: orange;
-}
-
 .main-bg-container {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,16 +15,22 @@
   display: flex;
   flex-direction: column;
   width: auto;
-  height: 100svh;
+  height: auto;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: transparent;
+  #title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: "Open Sans", sans-serif;
+  }
 
   .container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: rgba(245, 245, 220, 0.663);
+    background-color: #faf7f79f;
     backdrop-filter: blur(10px);
     /* Préfixes pour Safari */
     -webkit-backdrop-filter: blur(10px);
@@ -30,26 +39,27 @@
     -moz-backdrop-filter: blur(10px);
     align-items: center;
     padding: 1rem;
-    width: 80svw;
-    height: 40%;
+    width: 80%;
+    height: auto;
     border: solid 3px black;
     box-shadow: 2px 2px 6px white;
     border-radius: 1rem;
-    #title {
-      font-weight: bold;
-      text-align: center;
-      font-size: 1.5rem;
-      font-family: "Open Sans", sans-serif;
-    }
   }
 
   .btns-connexion {
     display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 30%;
-    justify-content: space-around;
+    flex-flow: nowrap row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
   }
+}
+
+.footer {
+  position: fixed;
+  height: auto;
+  bottom: 0;
 }
 
 @media screen and (min-width: 576px) {
@@ -76,6 +86,12 @@
       height: fit-content;
       justify-content: space-around;
     }
+  }
+  .footer {
+    position: fixed;
+    height: auto;
+    bottom: 0;
+    left: 0;
   }
 }
 

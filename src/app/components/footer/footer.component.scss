@@ -1,0 +1,121 @@
+.wrapper {
+  width: 100%;
+}
+.footer {
+  height: auto;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  .footer-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    width: auto;
+    .contact-container {
+      display: none;
+      flex-direction: column;
+      justify-content: start;
+      align-items: flex-start;
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+    .contact {
+      display: none;
+      .icons-contact {
+        width: 1rem;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+
+    li {
+      display: inline-block;
+      margin-left: 1rem;
+      a {
+        color: #fff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 490px) {
+  .footer {
+    position: fixed;
+    height: auto;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    bottom: 0;
+    left: 0;
+    border-top-left-radius: 15px; /* Arrondir le coin supérieur gauche */
+    border-top-right-radius: 15px; /* Arrondir le coin supérieur droit */
+    display: flex;
+    justify-content: center;
+    background-color: #557b36;
+    border-top: grey 1px solid;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    .footer-container {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      .contact-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: flex-start;
+        a {
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+      .contact {
+        display: inline;
+        .icons-contact {
+          width: 1rem;
+        }
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+
+      li {
+        display: inline-block;
+        margin-left: 1rem;
+        a {
+          color: #fff;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

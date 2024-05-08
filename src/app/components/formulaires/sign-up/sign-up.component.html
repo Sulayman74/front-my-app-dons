@@ -14,7 +14,7 @@
           <mat-label>Email</mat-label>
           <input
             matInput
-            (input)="clearErrorMessage()"
+            (input)="clearErrorMessage(); normalizeEmail()"
             formControlName="email"
             type="email"
             [errorStateMatcher]="matcher"
@@ -76,7 +76,7 @@
             matInput
             (keyup.enter)="onSubmit()"
             (input)="clearErrorMessage()"
-            type="text"
+            [type]="passwordFieldType"
             #input
             (ngModelChange)="checkInputLength(input.value)"
             formControlName="password"
@@ -92,7 +92,21 @@
           registerForm.get('password')?.touched)){
           <mat-error>Mot de passe <strong>Requis</strong></mat-error>
           }
-          <mat-icon matIconSuffix color="primary">password</mat-icon>
+          <!-- Icône pour basculer la visibilité -->
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="
+              'Toggle ' +
+              (passwordFieldType === 'password' ? 'visibility' : 'hide')
+            "
+            [attr.title]="passwordFieldType === 'password' ? 'Show' : 'Hide'"
+          >
+            <mat-icon>{{
+              passwordFieldType === "password" ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
           <mat-hint align="start">
             <span class="max-mdp" [ngClass]="inputLengthClass">
               {{ input.value.length }} </span
