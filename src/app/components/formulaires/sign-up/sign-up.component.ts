@@ -52,8 +52,7 @@ import { NotificationService } from '../../../utils/error.service';
 })
 export class SignUpComponent {
   registerForm!: FormGroup;
-  strongPasswordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  strongPasswordRegex = /^[a-zA-Z][:_\^+\-#&%$!*?@¨=a-zA-Z\d]{8,}$/;
 
   matcher = new MyErrorStateMatcher();
 
@@ -82,25 +81,7 @@ export class SignUpComponent {
       ],
     });
   }
-  // onSubmit() {
-  //   const registerForm = this.registerForm.value;
 
-  //   this._authService.registerForm(registerForm).subscribe(
-  //     (register: any) => {
-  //       if (register.token) {
-  //         this._authService.accessToken = register.token;
-  //         this._authService.isAuthenticated;
-  //         this._router.navigate(['/sign-in']);
-  //       }
-
-  //       this.registerForm.reset();
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       this.errorMessage = error.message;
-  //     }
-  //   );
-  // }
 
   onSubmit() {
     if (this.registerForm.valid) {
@@ -137,7 +118,8 @@ export class SignUpComponent {
       this.inputLengthClass = 'invalid';
     }
   }
-  togglePasswordVisibility() {
+  togglePasswordVisibility(event: Event) {
+    event.preventDefault()
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 

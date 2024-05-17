@@ -47,8 +47,7 @@ import { SignInResponse } from '../../../utils/types/sign-in-response';
 })
 export class SignInComponent {
   connexionForm!: FormGroup;
-  strongPasswordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  strongPasswordRegex = /^[a-zA-Z][:_\^+\-#&%$!*?@¨=a-zA-Z\d]{8,}$/;
 
   matcher = new MyErrorStateMatcher();
 
@@ -70,6 +69,7 @@ export class SignInComponent {
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
+        [Validators.required],
         [Validators.required, Validators.pattern(this.strongPasswordRegex)],
       ],
     });
@@ -124,7 +124,8 @@ export class SignInComponent {
       this.inputLengthClass = 'invalid';
     }
   }
-  togglePasswordVisibility() {
+  togglePasswordVisibility(event:Event) {
+    event.preventDefault()
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 

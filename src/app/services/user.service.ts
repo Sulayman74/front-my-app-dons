@@ -8,18 +8,31 @@ import { environment } from '../../../environment';
   providedIn: 'root',
 })
 export class UserService {
+  baseUrl = environment.baseApiUrl;
 
-  baseUrl = environment.baseApiUrl
-
-  constructor(private _httpClient: HttpClient) { }
-
+  constructor(private _httpClient: HttpClient) {}
 
   getProfile(): Observable<any> {
-    return this._httpClient.get<any>(`${this.baseUrl}users/profil`)
+    return this._httpClient.get<any>(`${this.baseUrl}users/profil`);
   }
 
-  updateProfile(id: string, updatedProfile: RegisterForm): Observable<RegisterForm> {
-    return this._httpClient.patch<RegisterForm>(`${this.baseUrl}users/${id}`, updatedProfile)
+  updateProfile(
+    id: string,
+    updatedProfile: RegisterForm
+  ): Observable<RegisterForm> {
+    return this._httpClient.patch<RegisterForm>(
+      `${this.baseUrl}users/${id}`,
+      updatedProfile
+    );
   }
 
+  updateUserPassword(
+    userId: string,
+    oldPassword: string,
+    newPassword: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}users/password/${userId}`; // Remplace avec l'URL correcte de ton API
+    const body = { oldPassword, newPassword };
+    return this._httpClient.put<any>(url, body);
+  }
 }
