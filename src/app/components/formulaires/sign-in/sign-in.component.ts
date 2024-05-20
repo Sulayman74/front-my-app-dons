@@ -47,7 +47,8 @@ import { SignInResponse } from '../../../utils/types/sign-in-response';
 })
 export class SignInComponent {
   connexionForm!: FormGroup;
-  strongPasswordRegex = /^[a-zA-Z][:_\^+\-#&%$!*?@¨=a-zA-Z\d]{8,}$/;
+  strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-_&à%£*€!?])[A-Za-z\d\-_&à%£*€!?]+$/;
+  // strongPasswordRegex = /^[a-zA-Z][:_\^+\-#&%$!*?@¨=a-zA-Z\d]{8,}$/;
 
   matcher = new MyErrorStateMatcher();
 

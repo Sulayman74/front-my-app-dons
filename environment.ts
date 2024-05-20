@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseApiUrl: 'http://localhost:3000/api/v1/'
+    baseApiUrl: 'https://compte-dons.vercel.app/api/v1/'
 };
