@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    baseApiUrl: 'https://compte-dons.vercel.app/api/v1/'
+    production: true,
+    baseApiUrl: 'https://compte-dons-9aazqqa5c-sulayman74s-projects.vercel.app/api/v1/'
 };
