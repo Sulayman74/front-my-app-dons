@@ -52,7 +52,7 @@ import { NotificationService } from '../../../utils/error.service';
 })
 export class SignUpComponent {
   registerForm!: FormGroup;
-  strongPasswordRegex = /^[a-zA-Z][:_\^+\-#&%$!*?@¨=a-zA-Z\d]{8,}$/;
+  strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*-_?&])[A-Za-z\d@$!%*-_?&]{8,}$/;
 
   matcher = new MyErrorStateMatcher();
 
