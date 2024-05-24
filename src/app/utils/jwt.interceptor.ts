@@ -17,6 +17,16 @@ import { throwError } from 'rxjs';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   public authService = inject(AuthService);
+  private whitelist: string[] = [
+    "https://cors-anywhere.herokuapp.com/https://restcountries.com/v3.1/all",
+    "https://geo.api.gouv.fr/communes?codePostal=",
+    "https://cors-anywhere.herokuapp.com/https://api-adresse.data.gouv.fr/reverse/",
+    'https://api-adresse.data.gouv.fr/search/'
+    // Ajoutez d'autres URLs que vous voulez exclure
+  ];
+  
+
+
 
   constructor(private errorService: NotificationService, private router: Router) { }
   intercept(
@@ -24,10 +34,10 @@ export class JwtInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // Ajouter le JWT dans l'en-tête Authorization s'il est présent dans le localStorage
-
+    const isWhitelisted = this.whitelist.some(url => request.url.includes(url));
     const token = this.authService.accessToken;
 
-    if (token) {
+    if (token && !isWhitelisted) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

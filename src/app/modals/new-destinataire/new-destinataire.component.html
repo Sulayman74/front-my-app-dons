@@ -1,1 +1,73 @@
-<p>new-destinataire works!</p>
+<h2 class="titre">Ajouter un bénéficiaire</h2>
+<mat-dialog-content class="container-form-addDon">
+    <form id="formulaire-destinataire" (ngSubmit)="onSubmit()" [formGroup]="newDestinataireForm">
+        <mat-form-field>
+
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="lastname" type="text" />
+        </mat-form-field>
+        <mat-form-field>
+
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="firstname" type="text" />
+        </mat-form-field>
+        <mat-form-field>
+
+            <mat-label>Téléphone</mat-label>
+            <input matInput formControlName="phoneNumber" type="tel" />
+        </mat-form-field>
+        <mat-form-field>
+
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Pays</mat-label>
+            <input matInput formControlName="country" type="text" [matAutocomplete]="auto" />
+            <mat-icon matSuffix>home</mat-icon>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let country of filteredCountries$ | async" [value]="country ">
+                    {{ country }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+
+            <mat-label>Ville</mat-label>
+            <input matInput formControlName="city" type="text" [matAutocomplete]="city" (keypress)="test()" />
+
+            <mat-autocomplete autoActiveFirstOption #city="matAutocomplete">
+                <mat-option *ngFor="let city of cityOptions" [value]="city">
+                    {{ city.properties.city }} - {{city.properties.postcode}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+
+            <mat-label>Rue</mat-label>
+            <input matInput formControlName="street" type="text" />
+        </mat-form-field>
+        <mat-form-field>
+
+            <mat-label>Code Postal</mat-label>
+            <input matInput formControlName="zipcode" type="text" />
+
+        </mat-form-field>
+
+        <mat-dialog-actions>
+            <button mat-flat-button color="primary" (click)="onNoClick()" type="button"> Valider</button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>
+{{cityOptions |json}}
+<!--
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</mat-dialog-actions> -->
