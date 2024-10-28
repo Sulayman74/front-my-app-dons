@@ -34,11 +34,11 @@
         <mat-form-field>
 
             <mat-label>Ville</mat-label>
-            <input matInput formControlName="city" type="text" [matAutocomplete]="city" (keypress)="test()" />
+            <input matInput formControlName="city" type="text" [matAutocomplete]="city" (keypress)="getCities()" />
 
             <mat-autocomplete autoActiveFirstOption #city="matAutocomplete">
-                <mat-option *ngFor="let city of cityOptions" [value]="city">
-                    {{ city.properties.city }} - {{city.properties.postcode}}
+                <mat-option *ngFor="let city of cityOptions" [value]="city.properties?.city">
+                    {{ city.properties?.city }}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
@@ -51,7 +51,7 @@
 
             <mat-label>Code Postal</mat-label>
             <input matInput formControlName="zipcode" type="text" />
-
+            {{cityOptions[0]?.properties.postcode}}
         </mat-form-field>
 
         <mat-dialog-actions>
@@ -59,7 +59,7 @@
         </mat-dialog-actions>
     </form>
 </mat-dialog-content>
-{{cityOptions |json}}
+<!-- {{cityOptions |json}} -->
 <!--
   <p>What's your favorite animal?</p>
   <mat-form-field>

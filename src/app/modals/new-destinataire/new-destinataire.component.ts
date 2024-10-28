@@ -89,11 +89,13 @@ export class NewDestinataireComponent implements OnInit, AfterViewInit {
     private _snackbar: MatSnackBar,
     private _userService: UserService
   ) {
+    this.getCities();
+
     this.newDestinataireForm = this._fb.group({
-      city: [''],
+      city: [this.cityOptions[0]?.properties.city],
       country: [''],
       street: [''],
-      zipcode: [''],
+      zipcode: [this.cityOptions[0]?.properties.postcode],
       email: ['', [Validators.email, Validators.required]],
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.minLength(2)]],
@@ -125,7 +127,7 @@ export class NewDestinataireComponent implements OnInit, AfterViewInit {
   sortCountries(): string[] {
     return this.countries.map((countryName: any) => countryName.name.common);
   }
-  test() {
+  getCities() {
     this.newDestinataireForm
       ?.get('city')
       ?.valueChanges.pipe(
@@ -135,10 +137,10 @@ export class NewDestinataireComponent implements OnInit, AfterViewInit {
       )
       .subscribe((value) => {
         if (value?.length > 3) {
-          this._dataService.searchAddress(value)?.subscribe((address)=>{
-            this.cityOptions = address.features
+          this._dataService.searchAddress(value)?.subscribe((address) => {
+            this.cityOptions = address.features;
             console.log(this.cityOptions);
-          })
+          });
         }
       });
   }

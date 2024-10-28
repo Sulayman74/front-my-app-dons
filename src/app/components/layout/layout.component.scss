@@ -1,6 +1,6 @@
 #tirroir {
   height: 100svh;
-  width: 50%;
+  width: 100%;
   .ma-liste {
     display: flex;
     flex-direction: column;
@@ -51,32 +51,31 @@
 }
 
 
-@media screen and (min-width: 429px) and (max-width: 1023px) {
-  #tirroir {
-    height: 100svh;
-    width: 25%;
-    .ma-liste {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: start;
-      height: 50%;
-      width: auto;
-      list-style-type: none;
+// @media screen and (min-width: 431px) and (max-width: 1023px) {
+//   #tirroir {
+//     height: 100svh;
+//     .ma-liste {
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: space-around;
+//       align-items: start;
+//       height: 50%;
+//       width: auto;
+//       list-style-type: none;
 
-      .list-btns {
-        font-size: 1rem;
+//       .list-btns {
+//         font-size: 1rem;
 
-      }
-    }
-  }
-}
+//       }
+//     }
+//   }
+// }
 
 /* Pour les écrans de 1024px et plus */
 @media screen and (min-width: 1024px) {
   #tirroir {
     height: 100svh;
-    width: 10%;
+    max-width: 22%;
     .ma-liste {
       display: flex;
       flex-direction: column;
